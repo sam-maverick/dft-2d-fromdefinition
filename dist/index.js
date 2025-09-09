@@ -15,9 +15,15 @@ function dft(signal, convention = 'unnormalized') {
     const N = signal[0].length;
     let dft_factor = 1;
     switch (convention) {
-        case 'unnormalized': dft_factor = 1;
-        case 'normalizedforward': dft_factor = (1 / (M * N));
-        case 'normalizedunitary': dft_factor = (1 / Math.sqrt(M * N));
+        case 'unnormalized':
+            dft_factor = 1;
+            break;
+        case 'normalizedforward':
+            dft_factor = (1 / (M * N));
+            break;
+        case 'normalizedunitary':
+            dft_factor = (1 / Math.sqrt(M * N));
+            break;
     }
     ;
     let transform = Array.from({ length: M }, () => {
@@ -50,9 +56,15 @@ function idft(transform, convention = 'unnormalized') {
     const N = transform[0].length;
     let idft_factor = 1;
     switch (convention) {
-        case 'unnormalized': idft_factor = (1 / (M * N));
-        case 'normalizedforward': idft_factor = 1;
-        case 'normalizedunitary': idft_factor = (1 / Math.sqrt(M * N));
+        case 'unnormalized':
+            idft_factor = (1 / (M * N));
+            break;
+        case 'normalizedforward':
+            idft_factor = 1;
+            break;
+        case 'normalizedunitary':
+            idft_factor = (1 / Math.sqrt(M * N));
+            break;
     }
     ;
     let signal = Array.from({ length: M }, () => {

@@ -19,8 +19,11 @@ export function dft(signal: number[][][], convention: Convention = 'unnormalized
   let dft_factor = 1;
   switch(convention) {
     case 'unnormalized': dft_factor = 1;
+      break;
     case 'normalizedforward': dft_factor = (1/(M*N));
+      break;
     case 'normalizedunitary': dft_factor = (1/Math.sqrt(M*N));
+      break;
   };
 
   let transform = Array.from({ length: M }, () => {
@@ -63,8 +66,11 @@ export function idft(transform: number[][][], convention: Convention = 'unnormal
   let idft_factor = 1;
   switch(convention) {
     case 'unnormalized': idft_factor = (1/(M*N));
+      break;
     case 'normalizedforward': idft_factor = 1;
+      break;
     case 'normalizedunitary': idft_factor = (1/Math.sqrt(M*N));
+      break;
   };
 
 
