@@ -1,6 +1,6 @@
 {
   "name": "dft-2d-fromdefinition",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Implementation of the DFT for 2D inputs.",
   "main": "dist/index.js",
   "scripts": {
