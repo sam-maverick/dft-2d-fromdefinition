@@ -1,4 +1,4 @@
-Implementation of the two-dimensional Discrete Fourier Transform (2D-DFT), and its inverse, from the very definition. The equations below show the definition of the 2D-DFT and the conventions supported in this module.
+This Node module is an implementation of the two-dimensional Discrete Fourier Transform (2D-DFT), and its inverse, from its very definition. The equations below show the definition of the 2D-DFT and the conventions supported in this module.
 
 <img src="./Transform_equations.svg" alt="correctness" style="zoom:150%;" />
 
