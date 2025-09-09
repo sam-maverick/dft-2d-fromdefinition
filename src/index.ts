@@ -2,6 +2,7 @@
 
 import { add, multiply, exponential, TWO_PI } from './utils';
 
+type Convention = 'unnormalized' | 'normalizedforward' | 'normalizedunitary';
 
 /**
  * This function calculates the 2D-DFT of a real or imaginary signal, from the definition of the DFT.
@@ -10,10 +11,17 @@ import { add, multiply, exponential, TWO_PI } from './utils';
  * It is assumed that the array is a matrix, i.e., signal[x].length is always the same.
  * @returns The DFT of signal, in the same format.
  */
-export function dft(signal: number[][][]) {
+export function dft(signal: number[][][], convention: Convention = 'unnormalized') {
 
   const M = signal.length;
   const N = signal[0].length;
+
+  let dft_factor = 1;
+  switch(convention) {
+    case 'unnormalized': dft_factor = 1;
+    case 'normalizedforward': dft_factor = (1/(M*N));
+    case 'normalizedunitary': dft_factor = (1/Math.sqrt(M*N));
+  };
 
   let transform = Array.from({ length: M }, () => {
     return Array.from({ length: N }, () => {
@@ -30,7 +38,7 @@ export function dft(signal: number[][][]) {
           sum = add ( sum, multiply ( signal[x][y], exponential ( -TWO_PI * ( (u*x/M) + (v*y/N) ) ) ) ) ;
         }
       }
-      transform[u][v] = multiply([(1/(M*N)),0], sum);
+      transform[u][v] = multiply([dft_factor,0], sum);
 
     }
   }
@@ -47,10 +55,18 @@ export function dft(signal: number[][][]) {
  * It is assumed that the array is a matrix, i.e., transform[u].length is always the same.
  * @returns The inverse DFT, in the same format.
  */
-export function idft(transform: number[][][]) {
+export function idft(transform: number[][][], convention: Convention = 'unnormalized') {
 
   const M = transform.length;
   const N = transform[0].length;
+
+  let idft_factor = 1;
+  switch(convention) {
+    case 'unnormalized': idft_factor = (1/(M*N));
+    case 'normalizedforward': idft_factor = 1;
+    case 'normalizedunitary': idft_factor = (1/Math.sqrt(M*N));
+  };
+
 
   let signal = Array.from({ length: M }, () => {
     return Array.from({ length: N }, () => {
@@ -67,7 +83,7 @@ export function idft(transform: number[][][]) {
           sum = add ( sum, multiply ( transform[u][v], exponential ( TWO_PI * ( (u*x/M) + (v*y/N) ) ) ) ) ;
         }
       }
-      signal[x][y] = sum;
+      signal[x][y] = multiply([idft_factor,0], sum);
 
     }
   }

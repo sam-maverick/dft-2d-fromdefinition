@@ -10,9 +10,16 @@ const utils_1 = require("./utils");
  * It is assumed that the array is a matrix, i.e., signal[x].length is always the same.
  * @returns The DFT of signal, in the same format.
  */
-function dft(signal) {
+function dft(signal, convention = 'unnormalized') {
     const M = signal.length;
     const N = signal[0].length;
+    let dft_factor = 1;
+    switch (convention) {
+        case 'unnormalized': dft_factor = 1;
+        case 'normalizedforward': dft_factor = (1 / (M * N));
+        case 'normalizedunitary': dft_factor = (1 / Math.sqrt(M * N));
+    }
+    ;
     let transform = Array.from({ length: M }, () => {
         return Array.from({ length: N }, () => {
             return [0, 0];
@@ -26,7 +33,7 @@ function dft(signal) {
                     sum = (0, utils_1.add)(sum, (0, utils_1.multiply)(signal[x][y], (0, utils_1.exponential)(-utils_1.TWO_PI * ((u * x / M) + (v * y / N)))));
                 }
             }
-            transform[u][v] = (0, utils_1.multiply)([(1 / (M * N)), 0], sum);
+            transform[u][v] = (0, utils_1.multiply)([dft_factor, 0], sum);
         }
     }
     return transform;
@@ -38,9 +45,16 @@ function dft(signal) {
  * It is assumed that the array is a matrix, i.e., transform[u].length is always the same.
  * @returns The inverse DFT, in the same format.
  */
-function idft(transform) {
+function idft(transform, convention = 'unnormalized') {
     const M = transform.length;
     const N = transform[0].length;
+    let idft_factor = 1;
+    switch (convention) {
+        case 'unnormalized': idft_factor = (1 / (M * N));
+        case 'normalizedforward': idft_factor = 1;
+        case 'normalizedunitary': idft_factor = (1 / Math.sqrt(M * N));
+    }
+    ;
     let signal = Array.from({ length: M }, () => {
         return Array.from({ length: N }, () => {
             return [0, 0];
@@ -54,7 +68,7 @@ function idft(transform) {
                     sum = (0, utils_1.add)(sum, (0, utils_1.multiply)(transform[u][v], (0, utils_1.exponential)(utils_1.TWO_PI * ((u * x / M) + (v * y / N)))));
                 }
             }
-            signal[x][y] = sum;
+            signal[x][y] = (0, utils_1.multiply)([idft_factor, 0], sum);
         }
     }
     return signal;
