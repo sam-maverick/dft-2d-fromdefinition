@@ -10,7 +10,7 @@ const utils_1 = require("./utils");
  * It is assumed that the array is a matrix, i.e., signal[x].length is always the same.
  * @returns The DFT of signal, in the same format.
  */
-function dft(signal, convention = 'unnormalized_forward') {
+function dft(signal, convention) {
     const M = signal.length;
     const N = signal[0].length;
     let dft_factor = 1;
@@ -51,7 +51,7 @@ function dft(signal, convention = 'unnormalized_forward') {
  * It is assumed that the array is a matrix, i.e., transform[u].length is always the same.
  * @returns The inverse DFT, in the same format.
  */
-function idft(transform, convention = 'unnormalized_forward') {
+function idft(transform, convention) {
     const M = transform.length;
     const N = transform[0].length;
     let idft_factor = 1;
