@@ -16,13 +16,13 @@ export function dft(signal: number[][][], convention: Convention) {
   const M = signal.length;
   const N = signal[0].length;
 
-  let dft_factor = 1;
+  let norm_factor = 1;
   switch(convention) {
-    case 'unnormalized_forward': dft_factor = 1;
+    case 'unnormalized_forward': norm_factor = 1;
       break;
-    case 'normalized_forward': dft_factor = (1/(M*N));
+    case 'normalized_forward': norm_factor = (1/(M*N));
       break;
-    case 'symmetric': dft_factor = (1/Math.sqrt(M*N));
+    case 'symmetric': norm_factor = (1/Math.sqrt(M*N));
       break;
   };
 
@@ -41,7 +41,7 @@ export function dft(signal: number[][][], convention: Convention) {
           sum = add ( sum, multiply ( signal[x][y], exponential ( -TWO_PI * ( (u*x/M) + (v*y/N) ) ) ) ) ;
         }
       }
-      transform[u][v] = multiply([dft_factor,0], sum);
+      transform[u][v] = multiply([norm_factor,0], sum);
 
     }
   }
@@ -63,13 +63,13 @@ export function idft(transform: number[][][], convention: Convention) {
   const M = transform.length;
   const N = transform[0].length;
 
-  let idft_factor = 1;
+  let inorm_factor = 1;
   switch(convention) {
-    case 'unnormalized_forward': idft_factor = (1/(M*N));
+    case 'unnormalized_forward': inorm_factor = (1/(M*N));
       break;
-    case 'normalized_forward': idft_factor = 1;
+    case 'normalized_forward': inorm_factor = 1;
       break;
-    case 'symmetric': idft_factor = (1/Math.sqrt(M*N));
+    case 'symmetric': inorm_factor = (1/Math.sqrt(M*N));
       break;
   };
 
@@ -89,7 +89,7 @@ export function idft(transform: number[][][], convention: Convention) {
           sum = add ( sum, multiply ( transform[u][v], exponential ( TWO_PI * ( (u*x/M) + (v*y/N) ) ) ) ) ;
         }
       }
-      signal[x][y] = multiply([idft_factor,0], sum);
+      signal[x][y] = multiply([inorm_factor,0], sum);
 
     }
   }

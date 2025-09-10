@@ -13,16 +13,16 @@ const utils_1 = require("./utils");
 function dft(signal, convention) {
     const M = signal.length;
     const N = signal[0].length;
-    let dft_factor = 1;
+    let norm_factor = 1;
     switch (convention) {
         case 'unnormalized_forward':
-            dft_factor = 1;
+            norm_factor = 1;
             break;
         case 'normalized_forward':
-            dft_factor = (1 / (M * N));
+            norm_factor = (1 / (M * N));
             break;
         case 'symmetric':
-            dft_factor = (1 / Math.sqrt(M * N));
+            norm_factor = (1 / Math.sqrt(M * N));
             break;
     }
     ;
@@ -39,7 +39,7 @@ function dft(signal, convention) {
                     sum = (0, utils_1.add)(sum, (0, utils_1.multiply)(signal[x][y], (0, utils_1.exponential)(-utils_1.TWO_PI * ((u * x / M) + (v * y / N)))));
                 }
             }
-            transform[u][v] = (0, utils_1.multiply)([dft_factor, 0], sum);
+            transform[u][v] = (0, utils_1.multiply)([norm_factor, 0], sum);
         }
     }
     return transform;
@@ -54,16 +54,16 @@ function dft(signal, convention) {
 function idft(transform, convention) {
     const M = transform.length;
     const N = transform[0].length;
-    let idft_factor = 1;
+    let inorm_factor = 1;
     switch (convention) {
         case 'unnormalized_forward':
-            idft_factor = (1 / (M * N));
+            inorm_factor = (1 / (M * N));
             break;
         case 'normalized_forward':
-            idft_factor = 1;
+            inorm_factor = 1;
             break;
         case 'symmetric':
-            idft_factor = (1 / Math.sqrt(M * N));
+            inorm_factor = (1 / Math.sqrt(M * N));
             break;
     }
     ;
@@ -80,7 +80,7 @@ function idft(transform, convention) {
                     sum = (0, utils_1.add)(sum, (0, utils_1.multiply)(transform[u][v], (0, utils_1.exponential)(utils_1.TWO_PI * ((u * x / M) + (v * y / N)))));
                 }
             }
-            signal[x][y] = (0, utils_1.multiply)([idft_factor, 0], sum);
+            signal[x][y] = (0, utils_1.multiply)([inorm_factor, 0], sum);
         }
     }
     return signal;
