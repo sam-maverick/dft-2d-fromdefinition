@@ -1,6 +1,6 @@
 {
   "name": "dft-2d-fromdefinition",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "description": "Implementation of the Discrete Fourier Transform for 2D inputs, and its inverse, from its definition equation.",
   "main": "dist/index.js",
   "scripts": {

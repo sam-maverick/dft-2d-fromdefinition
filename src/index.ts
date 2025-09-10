@@ -11,7 +11,7 @@ type Convention = 'unnormalized_forward' | 'normalized_forward' | 'symmetric';
  * It is assumed that the array is a matrix, i.e., signal[x].length is always the same.
  * @returns The DFT of signal, in the same format.
  */
-export function dft(signal: number[][][], convention: Convention) {
+export function dft (signal: number[][][], convention: Convention) {
 
   const M = signal.length;
   const N = signal[0].length;
@@ -58,7 +58,7 @@ export function dft(signal: number[][][], convention: Convention) {
  * It is assumed that the array is a matrix, i.e., transform[u].length is always the same.
  * @returns The inverse DFT, in the same format.
  */
-export function idft(transform: number[][][], convention: Convention) {
+export function idft (transform: number[][][], convention: Convention) {
 
   const M = transform.length;
   const N = transform[0].length;
