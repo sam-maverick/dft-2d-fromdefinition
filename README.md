@@ -16,7 +16,7 @@ This Node module is an implementation of the two-dimensional Discrete Fourier Tr
 const dft2ddef = require('dft-2d-fromdefinition');
 
 let signal = [[[1,1],[2,0]],[[4,4],[5,0]]];  // corresponds to the complex signal [[1+j,2],[4+4j,5]]
-let transform = dft2ddef.dft(signal, 'unnormalized');
+let transform = dft2ddef.dft(signal, 'unnormalized_forward');
 console.log(transform);
 // Gives approx. [[[12,5],[-2,5]],[[-6,-3],[0,-3]]]
 ```
@@ -27,7 +27,7 @@ console.log(transform);
 const dft2ddef = require('dft-2d-fromdefinition');
 
 let transform = [[[12,5],[-2,5]],[[-6,-3],[0,-3]]];
-let signal = dft2ddef.idft(transform, 'unnormalized');
+let signal = dft2ddef.idft(transform, 'unnormalized_forward');
 console.log(signal);
 // Gives approx. [[[1,1],[2,0]],[[4,4],[5,0]]]  // corresponds to the complex signal [[1+j,2],[4+4j,5]]
 ```
