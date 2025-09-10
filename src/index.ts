@@ -2,7 +2,7 @@
 
 import { add, multiply, exponential, TWO_PI } from './utils';
 
-type Convention = 'unnormalized' | 'normalizedforward' | 'normalizedunitary';
+type Convention = 'unnormalized_forward' | 'normalized_forward' | 'symmetric';
 
 /**
  * This function calculates the 2D-DFT of a real or imaginary signal, from the definition of the DFT.
@@ -11,18 +11,18 @@ type Convention = 'unnormalized' | 'normalizedforward' | 'normalizedunitary';
  * It is assumed that the array is a matrix, i.e., signal[x].length is always the same.
  * @returns The DFT of signal, in the same format.
  */
-export function dft(signal: number[][][], convention: Convention = 'unnormalized') {
+export function dft(signal: number[][][], convention: Convention = 'unnormalized_forward') {
 
   const M = signal.length;
   const N = signal[0].length;
 
   let dft_factor = 1;
   switch(convention) {
-    case 'unnormalized': dft_factor = 1;
+    case 'unnormalized_forward': dft_factor = 1;
       break;
-    case 'normalizedforward': dft_factor = (1/(M*N));
+    case 'normalized_forward': dft_factor = (1/(M*N));
       break;
-    case 'normalizedunitary': dft_factor = (1/Math.sqrt(M*N));
+    case 'symmetric': dft_factor = (1/Math.sqrt(M*N));
       break;
   };
 
@@ -58,18 +58,18 @@ export function dft(signal: number[][][], convention: Convention = 'unnormalized
  * It is assumed that the array is a matrix, i.e., transform[u].length is always the same.
  * @returns The inverse DFT, in the same format.
  */
-export function idft(transform: number[][][], convention: Convention = 'unnormalized') {
+export function idft(transform: number[][][], convention: Convention = 'unnormalized_forward') {
 
   const M = transform.length;
   const N = transform[0].length;
 
   let idft_factor = 1;
   switch(convention) {
-    case 'unnormalized': idft_factor = (1/(M*N));
+    case 'unnormalized_forward': idft_factor = (1/(M*N));
       break;
-    case 'normalizedforward': idft_factor = 1;
+    case 'normalized_forward': idft_factor = 1;
       break;
-    case 'normalizedunitary': idft_factor = (1/Math.sqrt(M*N));
+    case 'symmetric': idft_factor = (1/Math.sqrt(M*N));
       break;
   };
 
