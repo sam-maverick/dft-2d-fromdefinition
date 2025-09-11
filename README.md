@@ -1,4 +1,6 @@
-This Node module is an implementation of the two-dimensional Discrete Fourier Transform (2D-DFT), and its inverse, from its very definition. The equations below show the definition of the 2D-DFT and the conventions supported in this module.
+This Node module is an implementation of the two-dimensional Discrete Fourier Transform (2D-DFT), and its inverse, from its very definition. It is intended for educational and research purposes. You should use this module with small inputs only, since calculating the transform from the definition is inefficient.
+
+The equations below show the definition of the 2D-DFT and the conventions supported in this module.
 
 <img src="./Transform_equations_2D_DFT.svg" alt="correctness" style="zoom:100%;" />
 
@@ -12,7 +14,7 @@ This Node module is an implementation of the two-dimensional Discrete Fourier Tr
 
 # Usage
 
-Note that the inputs and outputs are matrices of complex values, so as to support complex signals. If your signal is real, just convert it to complex first.
+Note that the inputs and outputs are matrices of complex values, so as to support complex signals. If your signal is real, just convert it to complex first, e.g., [[8,9],[7,6]] becomes [[[8,0],[9,0]],[[7,0],[6,0]]].
 
 ##### Forward transform
 
