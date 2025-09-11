@@ -2,6 +2,8 @@ This Node module is an implementation of the two-dimensional Discrete Fourier Tr
 
 <img src="./Transform_equations_2D_DFT.svg" alt="correctness" style="zoom:100%;" />
 
+
+
 # Installation
 
 `npm install dft-2d-fromdefinition`
