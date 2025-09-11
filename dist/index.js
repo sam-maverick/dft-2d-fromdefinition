@@ -1,8 +1,9 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dft = dft;
 exports.idft = idft;
 const utils_1 = require("./utils");
+const guards = require("./index.guard");
 /**
  * This function calculates the 2D-DFT of a real or imaginary signal, from the definition of the DFT.
  * @param signal Array of values of the 2D signal in the spacial domain, in cartesian format:
@@ -11,6 +12,9 @@ const utils_1 = require("./utils");
  * @returns The DFT of signal, in the same format.
  */
 function dft(signal, convention) {
+    if (!guards.isConvention(convention)) {
+        throw new Error('Invalid convention.');
+    }
     const M = signal.length;
     const N = signal[0].length;
     let norm_factor = 1;
@@ -52,6 +56,9 @@ function dft(signal, convention) {
  * @returns The inverse DFT, in the same format.
  */
 function idft(transform, convention) {
+    if (!guards.isConvention(convention)) {
+        throw new Error('Invalid convention.');
+    }
     const M = transform.length;
     const N = transform[0].length;
     let inorm_factor = 1;

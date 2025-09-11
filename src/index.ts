@@ -1,8 +1,8 @@
-'use strict';
-
 import { add, multiply, exponential, TWO_PI } from './utils';
+import * as guards from './index.guard'
 
-type Convention = 'unnormalized_forward' | 'normalized_forward' | 'symmetric';
+// Type must be exported for the --export-all option of ts-export-guard in the build script of package.json
+export type Convention = 'unnormalized_forward' | 'normalized_forward' | 'symmetric';
 
 /**
  * This function calculates the 2D-DFT of a real or imaginary signal, from the definition of the DFT.
@@ -12,6 +12,7 @@ type Convention = 'unnormalized_forward' | 'normalized_forward' | 'symmetric';
  * @returns The DFT of signal, in the same format.
  */
 export function dft (signal: number[][][], convention: Convention) {
+  if ( ! guards.isConvention(convention))  { throw new Error('Invalid convention.'); }
 
   const M = signal.length;
   const N = signal[0].length;
@@ -59,6 +60,7 @@ export function dft (signal: number[][][], convention: Convention) {
  * @returns The inverse DFT, in the same format.
  */
 export function idft (transform: number[][][], convention: Convention) {
+  if ( ! guards.isConvention(convention))  { throw new Error('Invalid convention.'); }
 
   const M = transform.length;
   const N = transform[0].length;
